@@ -14,9 +14,13 @@ class MainWindow:
         self.root.title("Anomalies Detector")
         self.root.geometry("1366x768")
         self.root.configure(background="#ffffff")
+        
+        self.notebook = ttk.Notebook(self.root)
+        self.notebook.pack(fill="both", expand=True)
 
         self.configure_style()
         self.setup_layout()
+        self.setup_main_tab()
         self.setup_control_panel()
 
     def configure_style(self):
@@ -29,9 +33,16 @@ class MainWindow:
 
     def setup_layout(self):
         """Setup main window layout"""
+        
+        self.main_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.main_tab, text="Main")
+        
+        self.data_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.data_tab, text="Data")
+        
         # Main paned panel
         self.paned_panel = tk.PanedWindow(
-            self.root, orient="horizontal", sashrelief="groove", sashwidth=5
+            self.data_tab, orient="horizontal", sashrelief="groove", sashwidth=5
         )
         # Left panel with settings
         self.control_panel = ttk.Frame(self.paned_panel)
@@ -45,8 +56,8 @@ class MainWindow:
         self.anomalies_panel = ttk.Frame(self.data_panel)
 
         # ttk.Label(self.control_panel, text="Control panel").pack()
-        # ttk.Label(self.plot_panel, text="Plot panel").pack()
-        # ttk.Label(self.anomalies_panel, text="Anomalies panel").pack()
+        ttk.Label(self.plot_panel, text="Plot panel").pack()
+        ttk.Label(self.anomalies_panel, text="Anomalies panel").pack()
 
         self.data_panel.add(self.plot_panel)
         self.data_panel.add(self.anomalies_panel)
@@ -55,6 +66,9 @@ class MainWindow:
         self.paned_panel.add(self.control_panel, minsize=200)
         self.paned_panel.add(self.data_panel)
         self.paned_panel.pack(fill="both", expand=True)
+
+    def setup_main_tab(self):
+        """Load main tab and stocks list"""
 
     def setup_control_panel(self):
         """Setup control panel Entries, Labels..."""
