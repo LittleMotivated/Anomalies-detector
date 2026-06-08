@@ -25,6 +25,8 @@ class MainWindow:
         style.theme_use("default")
         style.configure("TLabel", font=("Fira Code", 20))
 
+        style.configure("TButton", background="red", font=("Fira Code", 15))
+
     def setup_layout(self):
         """Setup main window layout"""
         # Main paned panel
@@ -56,27 +58,39 @@ class MainWindow:
 
     def setup_control_panel(self):
         """Setup control panel Entries, Labels..."""
-        # self.control_panel.columnconfigure(0, minsize=100, weight=1)
-        # self.control_panel.columnconfigure(1, minsize=150, weight=1)
-        ttk.Label(self.control_panel, text="TICKER", style="TLabel").pack(
-            pady=20
-        )  # grid(row=0, column=0, padx=5)
-        ttk.Entry(
-            self.control_panel, justify="center"
-        ).pack()  # grid(row=1, column=0, padx=5, sticky="ew")
-        ttk.Label(self.control_panel, text="START DATE", style="TLabel").pack(
-            pady=20
-        )  # grid(row=2, column=0, padx=5)
-        ttk.Entry(
-            self.control_panel, justify="center"
-        ).pack()  # grid(row=2, column=1, padx=5, sticky="ew")
+        ttk.Label(self.control_panel, text="TICKER", style="TLabel").pack(pady=20)
+        self.ticker_input = ttk.Entry(self.control_panel, justify="center")
+        self.ticker_input.pack()
 
-        ttk.Label(self.control_panel, text="END DATE", style="TLabel").pack(
-            pady=20
-        )  # grid(row=3, column=0, padx=5)
-        ttk.Entry(
-            self.control_panel, justify="center"
-        ).pack()  # grid(row=3, column=1, padx=5, sticky="ew")
+        ttk.Label(self.control_panel, text="START DATE", style="TLabel").pack(pady=20)
+        self.start_date_input = ttk.Entry(self.control_panel, justify="center")
+        self.start_date_input.pack()
+
+        ttk.Label(self.control_panel, text="END DATE", style="TLabel").pack(pady=20)
+        self.end_date_input = ttk.Entry(self.control_panel, justify="center")
+        self.end_date_input.pack()
+
+        self.load_button = ttk.Button(
+            self.control_panel,
+            text="Load data",
+            command=self.load_data(),
+            style="TButton",
+        )
+        self.load_button.pack(pady=30)
+
+        self.analyze_button = ttk.Button(
+            self.control_panel,
+            text="Start analysing",
+            command=self.analyse_data(),
+            style="TButton",
+        )
+        self.analyze_button.pack(pady=30)
+
+    def load_data(self):
+        pass
+
+    def analyse_data(self):
+        pass
 
     def run(self):
         """Run main loop"""
